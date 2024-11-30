@@ -1,6 +1,5 @@
 package com.example.emergitech.presentation.screens.singup.components
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,28 +12,23 @@ import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.emergitech.R
-import com.example.emergitech.domain.model.Response
 import com.example.emergitech.presentation.components.DefaultButton
 import com.example.emergitech.presentation.components.DefaultTextField
-import com.example.emergitech.presentation.navigation.AppScreen
 import com.example.emergitech.presentation.screens.singup.SingupViewModel
 import com.example.emergitech.presentation.ui.theme.*
 
 @Composable
 fun SingupContent(navController: NavHostController, viewModel: SingupViewModel = hiltViewModel()) {
 
-    val singupFlow = viewModel.singupFlow.collectAsState()
+    val state = viewModel.state
 
     Box(
         modifier = Modifier
@@ -45,7 +39,7 @@ fun SingupContent(navController: NavHostController, viewModel: SingupViewModel =
             modifier = Modifier
                 .fillMaxWidth()
                 .height(230.dp)
-                .background(BluePrimary) // Cambiado a BluePrimary para un encabezado moderno
+                .background(MaterialTheme.colors.primary)
         ) {
             Column(
                 modifier = Modifier
@@ -63,7 +57,7 @@ fun SingupContent(navController: NavHostController, viewModel: SingupViewModel =
 
         Card(
             modifier = Modifier.padding(start = 40.dp, end = 40.dp, top = 150.dp),
-            backgroundColor = DarkGray500 // Fondo de la tarjeta en gris oscuro para elegancia
+            backgroundColor = MaterialTheme.colors.surface
         ) {
             Column(
                 modifier = Modifier.padding(horizontal = 20.dp)
@@ -79,23 +73,23 @@ fun SingupContent(navController: NavHostController, viewModel: SingupViewModel =
                     text = "REGISTRO",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = White // Cambiado a blanco para destacar el texto
+                    color = MaterialTheme.colors.onSurface
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     text = "Por favor ingresa estos datos para continuar",
                     fontSize = 12.sp,
-                    color = MediumGray // Cambiado a MediumGray para un tono neutro
+                    color = MaterialTheme.colors.onSurface
                 )
                 Spacer(modifier = Modifier.height(25.dp))
                 DefaultTextField(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    value = viewModel.userName.value,
-                    onValueChange = { viewModel.userName.value = it },
+                    value = state.username,
+                    onValueChange = { viewModel.onUsernameInput(it) },
                     label = "Nombre de usuario",
                     icon = Icons.Default.Person,
-                    errorMsg = viewModel.userNameErrMsg.value,
+                    errorMsg = viewModel.userNameErrMsg,
                     validateField = {
                         viewModel.validateUserName()
                     }
@@ -104,36 +98,36 @@ fun SingupContent(navController: NavHostController, viewModel: SingupViewModel =
                 DefaultTextField(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    value = viewModel.email.value,
-                    onValueChange = { viewModel.email.value = it },
+                    value = state.email,
+                    onValueChange = { viewModel.onEmailInput(it) },
                     label = "Correo electrónico",
                     icon = Icons.Default.Email,
                     keyboardType = KeyboardType.Email,
-                    errorMsg = viewModel.emailErrMsg.value,
+                    errorMsg = viewModel.emailErrMsg,
                     validateField = { viewModel.validateEmail() }
                 )
 
                 DefaultTextField(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    value = viewModel.password.value,
-                    onValueChange = { viewModel.password.value = it },
+                    value = state.password,
+                    onValueChange = { viewModel.onPasswordInput(it) },
                     label = "Password",
                     icon = Icons.Default.Lock,
                     hideText = true,
-                    errorMsg = viewModel.passwordErrMsg.value,
+                    errorMsg = viewModel.passwordErrMsg,
                     validateField = { viewModel.validatePassword() }
                 )
 
                 DefaultTextField(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    value = viewModel.confirmPassword.value,
-                    onValueChange = { viewModel.confirmPassword.value = it },
+                    value = state.confirmPassword,
+                    onValueChange = { viewModel.onConfirmPasswordInput(it) },
                     label = "Confirmar Password",
                     icon = Icons.Outlined.Lock,
                     hideText = true,
-                    errorMsg = viewModel.confirmPasswordErrMsg.value,
+                    errorMsg = viewModel.confirmPasswordErrMsg,
                     validateField = { viewModel.validateConfirmPassword() }
                 )
 
@@ -142,7 +136,7 @@ fun SingupContent(navController: NavHostController, viewModel: SingupViewModel =
                         .fillMaxWidth()
                         .padding(vertical = 20.dp),
                     text = "REGISTRARSE",
-                    color = BluePrimary, // Cambiado a BluePrimary para el botón de registro
+                    color = MaterialTheme.colors.primary,
                     onClick = { viewModel.onSingup() },
                     enable = viewModel.isEnableLoginButton
                 )
@@ -150,31 +144,7 @@ fun SingupContent(navController: NavHostController, viewModel: SingupViewModel =
         }
     }
 
-    singupFlow.value.let {
-        when (it) {
-            Response.Loading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(
-                        color = BluePrimary // Cambiado a BluePrimary para el indicador de carga
-                    )
-                }
-            }
 
-            is Response.Success -> {
-                LaunchedEffect(Unit) {
-                    navController.popBackStack(AppScreen.Login.route, true)
-                    navController.navigate(route = AppScreen.Profile.route)
-                }
-            }
-
-            is Response.Failure -> {
-                Toast.makeText(LocalContext.current, it.exception?.message ?: "Error desconocido", Toast.LENGTH_LONG).show()
-            }
-        }
-    }
 }
 
 

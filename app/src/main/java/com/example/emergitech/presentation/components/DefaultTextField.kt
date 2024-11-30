@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -17,8 +18,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.emergitech.presentation.ui.theme.BluePrimary
-import com.example.emergitech.presentation.ui.theme.MediumGray
+
 import com.example.emergitech.presentation.ui.theme.Red700
 
 @Composable
@@ -46,14 +46,14 @@ fun DefaultTextField(
             label = {
                 Text(
                     text = label,
-                    color = MediumGray // Cambiado a MediumGray para un contraste adecuado
+                    color = MaterialTheme.colors.onSurface // Cambiado a MediumGray para un contraste adecuado
                 )
             },
             leadingIcon = {
                 Icon(
                     imageVector = icon,
                     contentDescription = "",
-                    tint = BluePrimary // Cambiado a BluePrimary para destacar el icono
+                    tint = MaterialTheme.colors.primary // Cambiado a BluePrimary para destacar el icono
                 )
             },
             visualTransformation = if (hideText) PasswordVisualTransformation() else VisualTransformation.None

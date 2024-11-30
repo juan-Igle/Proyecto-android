@@ -1,7 +1,11 @@
 package com.example.emergitech.presentation.screens.profile.components
 
+import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -9,8 +13,9 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -18,17 +23,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import com.example.emergitech.R
+import com.example.emergitech.presentation.MainActivity
 import com.example.emergitech.presentation.components.DefaultButton
-import com.example.emergitech.presentation.navigation.AppScreen
+import com.example.emergitech.presentation.navigation.AuthScreen
+import com.example.emergitech.presentation.navigation.DetailsScreen
+import com.example.emergitech.presentation.navigation.Graph
 import com.example.emergitech.presentation.screens.profile.ProfileViewModel
-import com.example.emergitech.presentation.ui.theme.BluePrimary
-import com.example.emergitech.presentation.ui.theme.MediumGray
-import com.example.emergitech.presentation.ui.theme.Red500
-import com.example.emergitech.presentation.ui.theme.White
+
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @Composable
 fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel = hiltViewModel()) {
+
+    val actvity = LocalContext.current as? Activity
+
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -55,31 +66,43 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                     text = "Bienvenido",
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
-                    color = White // Cambiado a blanco para que contraste con el fondo de la imagen
+                    color = MaterialTheme.colors.onBackground
                 )
 
                 Spacer(modifier = Modifier.height(55.dp))
-                Image(
-                    modifier = Modifier.size(120.dp),
-                    painter = painterResource(id = R.drawable.user),
-                    contentDescription = ""
-                )
+
+                if(viewModel.userData.image != null){
+
+                    AsyncImage(
+                        modifier = Modifier.size(120.dp).clip(CircleShape),
+                        model = viewModel.userData.image,
+                        contentDescription = "User image",
+                        contentScale = ContentScale.Crop
+                    )
+                }else{
+                    Image(
+                        modifier = Modifier.size(120.dp).clip(CircleShape),
+                        painter = painterResource(id = R.drawable.user),
+                        contentDescription = ""
+                    )
+                }
+
             }
         }
 
         Spacer(modifier = Modifier.height(55.dp))
         Text(
-            text = "Nombre del usuario",
+            text = viewModel.userData.username,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Italic,
-            color = BluePrimary // Cambiado a BluePrimary para un acento tecnológico
+            color = MaterialTheme.colors.primary
         )
         Text(
-            text = "email del usuario",
+            text = viewModel.userData.email,
             fontSize = 15.sp,
             fontStyle = FontStyle.Italic,
-            color = MediumGray // Cambiado a MediumGray para un tono neutro
+            color = MaterialTheme.colors.onSurface
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -87,26 +110,24 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
         DefaultButton(
             modifier = Modifier.width(250.dp),
             text = "Editar datos",
-            color = BluePrimary, // Cambiado a BluePrimary para consistencia con el tema
+            color = MaterialTheme.colors.primary,
             icon = Icons.Default.Edit,
             onClick = {
-                viewModel.logout()
-                navController.navigate(route = AppScreen.Login.route) {
-                    popUpTo(route = AppScreen.Profile.route) { inclusive = true }
-                }
+                navController.navigate(
+                    route = DetailsScreen.ProfileUpdate.passUser(viewModel.userData.toJson())
+                )
             }
         )
 
         DefaultButton(
             modifier = Modifier.width(250.dp),
             text = "Cerrar sesión",
-            color = Red500, // Cambiado a Red500 para destacar el botón de cerrar sesión
+            color = MaterialTheme.colors.error, // Cambiado a Red500 para destacar el botón de cerrar sesión
             icon = Icons.Default.Close,
             onClick = {
                 viewModel.logout()
-                navController.navigate(route = AppScreen.Login.route) {
-                    popUpTo(route = AppScreen.Profile.route) { inclusive = true }
-                }
+                actvity?.finish()
+                actvity?.startActivity(Intent(actvity, MainActivity::class.java))
             }
         )
     }

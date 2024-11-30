@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.emergitech.presentation.components.DefaultTopBar
 import com.example.emergitech.presentation.screens.login.LoginScreen
+import com.example.emergitech.presentation.screens.singup.components.SingUp
 import com.example.emergitech.presentation.screens.singup.components.SingupContent
 import com.example.emergitech.presentation.ui.theme.EmergiTechTheme
 
@@ -32,19 +33,6 @@ fun SingupScreen(navController: NavHostController){
         bottomBar = {}
     )
 
-
+   SingUp(navController = navController)
 }
 
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun PreviewSingup(){
-    EmergiTechTheme (darkTheme = true){
-        // A surface container using the 'background' color from the theme
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
-        ) {
-            SingupScreen(rememberNavController())
-        }
-    }
-}

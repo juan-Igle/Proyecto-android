@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.emergitech.presentation.screens.login.components.Login
 import com.example.emergitech.presentation.screens.login.components.LoginBottomBar
 import com.example.emergitech.presentation.screens.login.components.LoginContent
 import com.example.emergitech.presentation.ui.theme.EmergiTechTheme
@@ -29,6 +30,9 @@ fun LoginScreen(navController: NavHostController) {
             LoginBottomBar(navController)
         }
     )
+
+    //MANEJAR EL ESTADO DE LA PETICION DE LOGIN
+    Login(navController = navController)
 
 
 }

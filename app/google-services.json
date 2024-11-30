@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "407988754730",
-    "project_id": "j1492011",
-    "storage_bucket": "j1492011.firebasestorage.app"
+    "project_number": "225513810336",
+    "project_id": "emergitech-45db6",
+    "storage_bucket": "emergitech-45db6.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:407988754730:android:cb83be11c84611e5912653",
+        "mobilesdk_app_id": "1:225513810336:android:b9b09e41db1ff497659cc5",
         "android_client_info": {
           "package_name": "com.example.emergitech"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDpBOuUZtwqQYX2RCHZlU4oF-VoJjM_ie4"
+          "current_key": "AIzaSyAPMDoUjYRUf20JqIYmu1Akd01b2r5QLSU"
         }
       ],
       "services": {

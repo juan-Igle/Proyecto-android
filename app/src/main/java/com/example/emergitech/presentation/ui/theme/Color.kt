@@ -13,14 +13,24 @@ val DarkGray200 = Color(0xFF272727)
 val DarkGray500 = Color(0xFF202020)
 val DarkGray700 = Color(0xFF1B1B1B)
 
-val BluePrimary = Color(0xFF2979FF)// Color principal para acentos tecnológicos
-val BlueLight = Color(0xFF8AB4F8) // Azul más claro para fondos o detalles secundarios
-val BlueDark = Color(0xFF0056B3) // Azul oscuro para elementos de texto o énfasis
-val GreenSecondary = Color(0xFF28A745) // Verde para elementos interactivos o de éxito
-val GreenLight = Color(0xFF85E89D) // Verde claro para fondos suaves
-val GreenDark = Color(0xFF1B5E20) // Verde oscuro para contrastes o textos
-val PurpleAccent = Color(0xFF6F42C1) // Púrpura para acentos adicionales
-val LightGray = Color(0xFFD3D3D3) // Gris claro para bordes y elementos de fondo
-val MediumGray = Color(0xFF9E9E9E) // Gris medio para íconos o textos secundarios
-val White = Color(0xFFFFFFFF) // Blanco para fondos principales y contraste
-val Black = Color(0xFF000000) // Negro para textos y detalles importantes
+val PrimaryIndigo = Color(0xFF1E88E5) // Azul brillante para encabezados
+val PrimaryVariantIndigo = Color(0xFF1565C0) // Azul más oscuro para variantes
+val SecondaryCyan = Color(0xFF26C6DA) // Cian para acentos y elementos interactivos
+val SecondaryVariantCyan = Color(0xFF00838F) // Cian oscuro para variantes
+val BackgroundLight = Color(0xFFECEFF1) // Gris claro para fondos (tema claro)
+val BackgroundDark = Color(0xFF263238) // Gris oscuro para fondos (tema oscuro)
+val SurfaceLight = Color(0xFFFFFFFF) // Blanco puro para tarjetas (tema claro)
+val SurfaceDark = Color(0xFF37474F) // Gris oscuro para tarjetas (tema oscuro)
+val ErrorRed = Color(0xFFD32F2F) // Rojo para indicar errores
+val OnPrimary = Color(0xFFFFFFFF) // Blanco para texto sobre color primario
+val OnSecondary = Color(0xFFFFFFFF) // Blanco para texto sobre color secundario
+val OnBackgroundLight = Color(0xFF212121) // Negro/gris oscuro sobre fondo claro
+val OnBackgroundDark = Color(0xFFFFFFFF) // Blanco sobre fondo oscuro
+val OnSurfaceLight = Color(0xFF212121) // Negro/gris oscuro sobre superficie clara
+val OnSurfaceDark = Color(0xFFFFFFFF) // Blanco sobre superficie oscura
+val OnError = Color(0xFFFFFFFF) // Blanco sobre color de error
+val SurfaceCard = Color(0xFFF0F0F0) // Un gris claro para el fondo de las tarjetas.
+val IconColor = Color(0xFF1565C0) // Azul oscuro para destacar.
+val TextPrimary = Color(0xFF212121) // Texto principal oscuro.
+
+

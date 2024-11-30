@@ -13,10 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.emergitech.presentation.ui.theme.BluePrimary
-import com.example.emergitech.presentation.ui.theme.Red500
-import com.example.emergitech.presentation.ui.theme.Red700
-import com.example.emergitech.presentation.ui.theme.White
+import com.example.emergitech.presentation.ui.theme.*
 
 @Composable
 fun DefaultButton(
@@ -24,7 +21,7 @@ fun DefaultButton(
     text: String,
     errorMsg: String = "",
     onClick: () -> Unit,
-    color: Color = BluePrimary, // Cambiado a BluePrimary para acento tecnológico
+    color: Color = PrimaryIndigo, // Cambiado a BluePrimary para acento tecnológico
     icon: ImageVector = Icons.Default.ArrowForward,
     enable: Boolean = true
 ) {
@@ -38,12 +35,12 @@ fun DefaultButton(
             Icon(
                 imageVector = icon,
                 contentDescription = "",
-                tint = White // Asegura que el icono tenga un buen contraste con el botón
+                tint = OnPrimary // Asegura que el icono tenga un buen contraste con el botón
             )
             Spacer(modifier = Modifier.width(10.dp))
             Text(
                 text = text,
-                color = White // Texto en blanco para contraste claro
+                color = OnPrimary // Texto en blanco para contraste claro
             )
         }
 
@@ -51,7 +48,7 @@ fun DefaultButton(
             modifier = Modifier.padding(top = 2.dp),
             text = errorMsg,
             fontSize = 10.sp,
-            color = Red700 // Manteniendo Red700 para mensajes de error
+            color = ErrorRed // Manteniendo Red700 para mensajes de error
         )
     }
 }

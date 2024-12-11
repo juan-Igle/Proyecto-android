@@ -1,6 +1,9 @@
 package com.example.emergitech.presentation.screens.new_post
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,8 +28,15 @@ fun NewPostScreen(
                      navController = navController
                  )
         },
-        content = {
-            NewPostContent()
+        content = { paddingValues ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ){
+                NewPostContent()
+            }
+
         },
         bottomBar = {
             DefaultButton(

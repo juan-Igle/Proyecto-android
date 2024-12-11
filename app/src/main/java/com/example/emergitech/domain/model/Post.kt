@@ -9,6 +9,7 @@ data class Post(
     var name: String = "",
     var description: String = "",
     var category: String = "",
+    var enlace: String = "",
     var image: String = "",
     var idUser: String = "",
     var user: User? = null,
@@ -19,6 +20,7 @@ data class Post(
         name,
         description,
         category,
+        if(enlace.isNotEmpty()) URLEncoder.encode(enlace, StandardCharsets.UTF_8.toString()) else "",
         if (image != "") URLEncoder.encode(image, StandardCharsets.UTF_8.toString()) else "",
         idUser,
         User(

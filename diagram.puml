@@ -1,0 +1,156 @@
+@startuml
+
+left to right direction
+
+' Configuración de estilos
+skinparam packageStyle rect
+skinparam class {
+    BackgroundColor LightBlue
+    ArrowColor Black
+    BorderColor Black
+}
+
+' Agrupación por módulos
+package "Autenticación" {
+    interface AuthRepository {
+        + currentUser: FirebaseUser?
+        + login(email: String, password: String): Response<FirebaseUser>
+        + singUp(user: User): Response<FirebaseUser>
+        + logout(): void
+    }
+
+    class AuthRepositoryImpl {
+        - firebaseAuth: FirebaseAuth
+        + currentUser: FirebaseUser?
+        + login(email: String, password: String): Response<FirebaseUser>
+        + singUp(user: User): Response<FirebaseUser>
+        + logout(): void
+    }
+    AuthRepository <|-- AuthRepositoryImpl
+
+    class AuthUseCases {
+        + getCurrentUser: GetCurrentUser
+        + login: Login
+        + logout: Logout
+        + singup: Singup
+    }
+
+    class GetCurrentUser {
+        + invoke(): FirebaseUser?
+    }
+    AuthRepository <.. GetCurrentUser
+
+    class Login {
+        + invoke(email: String, password: String): Response<FirebaseUser>
+    }
+    AuthRepository <.. Login
+
+    class Logout {
+        + invoke(): void
+    }
+    AuthRepository <.. Logout
+
+    class Singup {
+        + invoke(user: User): Response<FirebaseUser>
+    }
+    AuthRepository <.. Singup
+    User <.. Singup
+}
+
+package "Publicaciones" {
+    interface PostsRepository {
+        + create(post: Post, file: File): Response<Boolean>
+        + getPostsByUserId(idUser: String): Flow<Response<List<Post>>>
+        + update(post: Post, file: File?): Response<Boolean>
+        + delete(idPost: String): Response<Boolean>
+        + getPosts(): Flow<Response<List<Post>>>
+        + like(idPost: String, idUser: String): Response<Boolean>
+        + deleteLike(idPost: String, idUser: String): Response<Boolean>
+    }
+
+    class PostsRepositoryImpl {
+        - postsRef: CollectionReference
+        - usersRef: CollectionReference
+        - storagePostsRef: StorageReference
+        + create(post: Post, file: File): Response<Boolean>
+        + getPostsByUserId(idUser: String): Flow<Response<List<Post>>>
+        + update(post: Post, file: File?): Response<Boolean>
+        + delete(idPost: String): Response<Boolean>
+        + like(idPost: String, idUser: String): Response<Boolean>
+        + deleteLike(idPost: String, idUser: String): Response<Boolean>
+    }
+    PostsRepository <|-- PostsRepositoryImpl
+
+    class PostsUseCases {
+        + create: CreatePost
+        + getPosts: GetPosts
+        + getPostsByIdUser: GetPostsByIdUser
+        + deletePost: DeletePost
+        + updatePost: UpdatePost
+        + likePost: LikePost
+        + deleteLikePost: DeleteLikePost
+    }
+
+    class CreatePost {
+        + invoke(post: Post, file: File): Response<Boolean>
+    }
+    PostsRepository <.. CreatePost
+    Post <.. CreatePost
+}
+
+package "Usuarios" {
+    interface UserRepository {
+        + create(user: User): Response<Boolean>
+        + update(user: User): Response<Boolean>
+        + saveImage(file: File): Response<String>
+        + getUserById(id: String): Flow<User>
+    }
+
+    class UsersRepositoryImplement {
+        - usersRef: CollectionReference
+        - storageUsersRef: StorageReference
+        + create(user: User): Response<Boolean>
+        + update(user: User): Response<Boolean>
+        + saveImage(file: File): Response<String>
+        + getUserById(id: String): Flow<User>
+    }
+    UserRepository <|-- UsersRepositoryImplement
+
+    class UsersUseCases {
+        + create: Create
+        + getUserById: GetUserById
+        + update: Update
+        + saveImage: SaveImage
+    }
+
+    class Create {
+        + invoke(user: User): Response<Boolean>
+    }
+    UserRepository <.. Create
+    User <.. Create
+}
+
+package "Modelos de dominio" {
+    class Post {
+        + id: String
+        + name: String
+        + description: String
+        + category: String
+        + enlace: String
+        + image: String
+        + idUser: String
+        + user: User?
+        + likes: ArrayList<String>
+    }
+    Post "1" --> "0..1" User
+
+    class User {
+        + id: String
+        + username: String
+        + email: String
+        + password: String
+        + image: String
+    }
+}
+
+@enduml

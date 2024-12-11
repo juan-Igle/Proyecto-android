@@ -68,6 +68,14 @@ fun PostsCard(navController: NavHostController, post: Post, viewModel: PostsView
                 maxLines = 2,
                 color = Color.Gray
             )
+
+            Text(
+                modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 3.dp, bottom = 10.dp),
+                text = post.enlace,
+                fontSize = 13.sp,
+                maxLines = 2,
+                color = Color.Gray
+            )
             Row(
                 modifier = Modifier.padding(start = 15.dp, bottom = 15.dp)
             ) {

@@ -69,6 +69,7 @@ class NewPostViewModel @Inject constructor(
        val post = Post(
            name = state.name,
            description = state.description,
+           enlace = state.enlace,
            category = state.category,
            idUser = currenUSer?.uid!!
        )
@@ -81,6 +82,7 @@ class NewPostViewModel @Inject constructor(
             name = "",
             category = "",
             description = "",
+            enlace = "",
             image = ""
         )
     }
@@ -113,6 +115,10 @@ class NewPostViewModel @Inject constructor(
 
     fun onDescriptionInput(description : String){
         state = state.copy(description = description)
+    }
+
+    fun onEnlaceIput(enlace: String){
+        state = state.copy(enlace =  enlace)
     }
 
     fun onImageInput(image: String){

@@ -2,6 +2,7 @@ package com.example.emergitech.presentation.screens.new_post.components
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
@@ -9,9 +10,7 @@ import androidx.compose.material.RadioButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -63,6 +62,7 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
          Box(
             modifier = Modifier
                .fillMaxWidth()
+               .padding(bottom = 30.dp)
                .height(170.dp)
                .background(MaterialTheme.colors.primary) // Cambiado a BluePrimary para un encabezado atractivo
          ) {
@@ -111,7 +111,7 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
          DefaultTextField(
             modifier = Modifier
                .fillMaxWidth()
-               .padding(top = 25.dp, start = 20.dp, end = 20.dp),
+               .padding(top = 0.dp, start = 20.dp, end = 20.dp),
             value = state.name,
             onValueChange = { viewModel.onNameInput(it) },
             validateField = {
@@ -131,9 +131,19 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
             validateField = {
 
             },
-            label = "",
+            label = "Descripción del post",
             icon = Icons.Default.List,
             errorMsg = ""
+         )
+
+         DefaultTextField(
+            modifier = Modifier
+               .fillMaxWidth()
+               .padding(top = 0.dp, start = 20.dp, end = 20.dp),
+            value = state.enlace,
+            onValueChange = {viewModel.onEnlaceIput(it)},
+            label = "Enlace de la noticia",
+            icon = Icons.Default.KeyboardArrowRight
          )
          
          Text(

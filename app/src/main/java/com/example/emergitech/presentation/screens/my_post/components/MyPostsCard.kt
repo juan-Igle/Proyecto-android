@@ -25,6 +25,7 @@ import com.example.emergitech.presentation.navigation.DetailsScreen
 import com.example.emergitech.presentation.screens.my_post.MyPostsViewModel
 import com.example.emergitech.presentation.ui.theme.IconColor
 import com.example.emergitech.presentation.ui.theme.Red700
+import com.example.emergitech.presentation.ui.theme.TextPrimary
 
 @Composable
 fun MyPostsCard(navController: NavHostController, post: Post, viewModel: MyPostsViewModel = hiltViewModel()) {
@@ -52,7 +53,8 @@ fun MyPostsCard(navController: NavHostController, post: Post, viewModel: MyPosts
             Text(
                 modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp),
                 text = post.name,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = TextPrimary
             )
             Text(
                 modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 3.dp),
@@ -61,6 +63,15 @@ fun MyPostsCard(navController: NavHostController, post: Post, viewModel: MyPosts
                 maxLines = 2,
                 color = Color.Gray
             )
+
+            Text(
+                modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 3.dp, bottom = 10.dp),
+                text = post.enlace,
+                fontSize = 13.sp,
+                maxLines = 2,
+                color = Color.Gray
+            )
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween

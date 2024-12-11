@@ -1,5 +1,6 @@
 package com.example.emergitech.presentation.screens.detail_post.components
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import com.example.emergitech.R
@@ -15,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,6 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.example.emergitech.presentation.components.ClickableLink
 import com.example.emergitech.presentation.screens.detail_post.DetailPostViewModel
 import com.example.emergitech.presentation.ui.theme.Red500
 import com.example.emergitech.presentation.ui.theme.TextPrimary
@@ -149,6 +152,28 @@ fun DetailPostContent(navController: NavHostController, viewModel: DetailPostVie
             text = viewModel.post.description,
             fontSize = 14.sp
         )
+
+        Divider(
+            modifier = Modifier.padding(end = 20.dp, top = 10.dp, bottom = 10.dp),
+            startIndent = 20.dp,
+            thickness = 1.dp,
+            color = Color.DarkGray
+        )
+
+        Text(
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
+            text = "ENLACE",
+            fontWeight = FontWeight.Bold,
+            fontSize = 17.sp
+        )
+
+
+        if (viewModel.post.enlace.isNotBlank()) {
+            ClickableLink(enlace = viewModel.post.enlace)
+        } else {
+            val context = LocalContext.current
+            Toast.makeText(context, "Enlace no disponible", Toast.LENGTH_SHORT).show()
+        }
 
     }
 

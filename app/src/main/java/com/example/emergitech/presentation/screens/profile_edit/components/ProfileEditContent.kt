@@ -118,7 +118,7 @@ fun ProfileEditContent(navController: NavHostController, viewModel: ProfileEditV
                             start = 0.dp,
                             end = 0.dp
                         ),
-                    text = "REGISTRO",
+                    text = "ACTUALIZAR NOMBRE",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colors.onSurface

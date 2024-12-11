@@ -1,0 +1,22 @@
+@startuml
+
+left to right direction
+
+actor Usuario
+actor Administrador
+
+Usuario --> (Registrar Usuario)
+Usuario --> (Iniciar Sesión)
+Usuario --> (Cerrar Sesión)
+Usuario --> (Crear Publicación)
+Usuario --> (Ver Lista de Publicaciones)
+Usuario --> (Ver Detalles de Publicación)
+Usuario --> (Editar Publicación)
+Usuario --> (Eliminar Publicación)
+Usuario --> (Actualizar Perfil)
+
+Administrador --> (Crear Publicación)
+Administrador --> (Eliminar Publicación)
+Administrador --> (Editar Publicación)
+
+@enduml

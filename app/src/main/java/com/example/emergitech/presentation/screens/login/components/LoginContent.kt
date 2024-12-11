@@ -52,7 +52,7 @@ fun LoginContent(navControler: NavHostController, viewModel: LoginViewModel = hi
                 )
 
                 Text(
-                    text = "Emergi Tech",
+                    text = "EmergiTech",
                     color = MaterialTheme.colors.onPrimary, // Texto en blanco para contraste con el fondo azul
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -61,7 +61,7 @@ fun LoginContent(navControler: NavHostController, viewModel: LoginViewModel = hi
         }
 
         Card(
-            modifier = Modifier.padding(start = 40.dp, end = 40.dp, top = 190.dp),
+            modifier = Modifier.padding(start = 40.dp, end = 40.dp, top = 220.dp),
             backgroundColor = MaterialTheme.colors.surface
         ) {
             Column(

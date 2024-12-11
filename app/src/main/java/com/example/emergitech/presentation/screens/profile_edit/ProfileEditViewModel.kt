@@ -70,7 +70,7 @@ class ProfileEditViewModel @Inject constructor(
     }
 
    fun pickImage() = viewModelScope.launch {
-       val result = resultingActivityHandler.getContent("images/*")
+       val result = resultingActivityHandler.getContent("image/*")
        if(result != null){
            file = ComposeFileProvider.createFileFromUri(context, result)
            state = state.copy(image = result.toString())

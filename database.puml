@@ -1,0 +1,33 @@
+@startuml
+entity "User" as User {
+    * id : String [PK]
+    --
+    username : String
+    email : String
+    password : String
+    image : String
+}
+
+entity "Post" as Post {
+    * id : String [PK]
+    --
+    name : String
+    description : String
+    category : String
+    enlace : String
+    image : String
+    idUser : String [FK]
+}
+
+entity "Like" as Like {
+    * id : String [PK]
+    --
+    postId : String [FK]
+    userId : String [FK]
+}
+
+User ||--o{ Post : crea
+User ||--o{ Like : genera
+Post ||--o{ Like : tiene
+
+@enduml
